@@ -10,6 +10,8 @@ import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import Fade from "@material-ui/core/Fade";
 import MenuIcon from "@material-ui/icons/Menu";
+import { useDispatch } from "react-redux";
+import { addsearchtab } from "../actions/allActions";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -70,10 +72,15 @@ function Header() {
   const isSmall = useMediaQuery(theme.breakpoints.down("md"));
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
+  const dispatch = useDispatch();
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
+
+  const addnewtab =() => {
+    dispatch(addsearchtab());
+  }
 
   const handleClose = () => {
     setAnchorEl(null);
@@ -137,6 +144,7 @@ function Header() {
                     variant="contained"
                     size="small"
                     className={classes.btn1}
+                    onClick={addnewtab}
                   >
                     <b>Search</b>
                   </Button>

@@ -1,4 +1,4 @@
-const data = [];
+const data1 = [];
 
 const newdata = [
     {
@@ -54,38 +54,53 @@ const newdata = [
     [],
 ];
 
+data1.push(newdata);
 
-export const tabDataReducer= (state = data.push(newdata), action) => {
+const initialValue ={
+    data: data1,
+}
+
+
+export const tabDataReducer= (state = initialValue, action) => { 
     switch(action.type){
-        case "ADD_DATA_TAB": 
+        case "ADD_DATA_TAB":{ 
+            const temp =[...state.data];
+            temp.push(newdata);
             return{
                 ...state,
-                data: data.push(newdata),
+                data: temp,
             }
+        }
 
-        case "ADD_DATA_RESULT":
+        case "ADD_DATA_RESULT":{
+            const temp =[...state.data];
+            temp[action.payload.id][6].push(...action.payload.data)
             return{
                 ...state,
-                data: data[action.payload.id][6].push(...action.payload.data),
+                data: temp,
             }
+        }
 
-        case "ADD_RESULT":
-            const arr=[action.payload.data]
+        case "ADD_RESULT":{
+            const temp=[...state.data];
+            temp.push(action.payload);
             return{
                 ...state,
-                data:data.push(arr),
+                data:temp,
             }
+        }
 
-        case "DELETE_DATA":
-            const arr1 = [...state]
-            arr1.splice(action.payload.id, 1);  
+        case "DELETE_DATA":{
+            const arr1 = [...state.data]
+            arr1.splice(action.payload, 1);  
             return{
                 ...state,
                 data:[...arr1],
             }
+        }
 
-        case "UPDATE_DATA":
-            const temp =[...state];
+        case "UPDATE_DATA":{
+            const temp =[...state.data];
             if(action.payload.row === 0 ){
                 temp[action.payload.id][0].name = action.payload.data.name;
                 temp[action.payload.id][0].altname = action.payload.data.altname;
@@ -141,6 +156,7 @@ export const tabDataReducer= (state = data.push(newdata), action) => {
                 ...state,
                 data:[...temp],
             }
+        }
 
         default: return state;
     }

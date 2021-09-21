@@ -1,19 +1,21 @@
 // import './App.css';
 import  Header from './components/Header';
-import { Paper} from "@material-ui/core";
 import TabHeader from './components/TabHeader';
 import SearchView from './components/SearchView';
 import DetailedView from './components/DetailedView';
+import { useSelector } from 'react-redux'
 
 
 function App() {
+  const tab = useSelector((state) => state.tabsReducer.tabs);
+  const value = useSelector((state) => state.tabsReducer.value);
+
   return (
-      <Paper style={{ height: "100vh" }}>
+      <>
           <Header />
           <TabHeader/>
-          <SearchView/>
-          {/* <DetailedView/> */}
-      </Paper>
+          {tab[value]===0? <SearchView/> : <DetailedView/> }
+      </>
   );
 }
 

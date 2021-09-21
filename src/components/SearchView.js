@@ -12,6 +12,8 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
+import { useDispatch } from "react-redux";
+import { addresult } from "../actions/allActions";
 
 const useStyles = makeStyles((theme) => ({
   tabs: {
@@ -118,6 +120,7 @@ function SearchView() {
   const [value, setValue] = React.useState(1);
   const [indicate, setIndicate] = React.useState(true);
   const classes = useStyles();
+  const dispatch = useDispatch();
 
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
@@ -205,7 +208,7 @@ function SearchView() {
         </Paper>
         <Paper className={classes.paper2} >
           <div style={{margin:"1vh",textIndent:"1vh"}}>Search Result</div>
-        <TableContainer style={{maxHeight: 380}}>
+        <TableContainer style={{maxHeight: '40vh'}}>
         <Table stickyHeader aria-label="sticky table">
           <TableHead>
             <TableRow>
@@ -223,7 +226,7 @@ function SearchView() {
           <TableBody>
             {rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => {
               return (
-                <TableRow hover role="checkbox" tabIndex={-1} key={row.code} onClick={()=>clickme(row.id)}>
+                <TableRow hover role="checkbox" tabIndex={-1} key={row.code} onClick={()=>dispatch(addresult({id:row.id, res: rows[row.id-1]}))}>
                   {columns.map((column) => {
                     const value = row[column.id];
                     return (
