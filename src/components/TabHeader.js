@@ -26,9 +26,14 @@ function TabHeader() {
 
   const handleChange = async(event, newValue) => {
     if(event.target.tagName ==="svg" || event.target.tagName === "path"){
+      if(tab.length===1){
+        window.alert("You can't close this tab as you have reached to the minimum number of tabs")
+      }
+      else{
        dispatch(deletetab(newValue));
        if(newValue<value || (newValue===value && newValue!==0))
-         dispatch(setvalue(value-1))       
+         dispatch(setvalue(value-1))     
+       }  
     }
     else
         dispatch(setvalue(newValue))

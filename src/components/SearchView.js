@@ -12,8 +12,8 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
-import { useDispatch } from "react-redux";
-import { addresult } from "../actions/allActions";
+import { useDispatch, useSelector } from "react-redux";
+import { addresult, setid, setres } from "../actions/allActions";
 
 const useStyles = makeStyles((theme) => ({
   tabs: {
@@ -48,6 +48,7 @@ const useStyles = makeStyles((theme) => ({
   btn: {
     textAlign: "center",
     marginTop: "2vh",
+    marginBottom :"2vh",
   },
   text: {
     fontSize: "1vh",
@@ -58,6 +59,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: "#ebeff2",
     overflowY: "scroll",
     border: ".05rem solid #00b6d3",
+    // textAlign:"center",
   },
   paper2:{
     flexGrow:1,
@@ -93,34 +95,15 @@ const columns = [
   },
 ];
 
-function createData(id,name, code, population, size) {
-  const density = population / size;
-  return { id,name, code, population, size, density };
-}
-
-const rows = [
-  createData(1,'India', 'IN', 1324171354, 3287263),
-  createData(2,'China', 'CN', 1403500365, 9596961),
-  createData(3,'Italy', 'IT', 60483973, 301340),
-  createData(4,'United States', 'US', 327167434, 9833520),
-  createData(5,'Canada', 'CA', 37602103, 9984670),
-  createData(6,'Australia', 'AU', 25475400, 7692024),
-  createData(7,'Germany', 'DE', 83019200, 357578),
-  createData(8,'Ireland', 'IE', 4857000, 70273),
-  createData(9,'Mexico', 'MX', 126577691, 1972550),
-  createData(10,'Japan', 'JP', 126317000, 377973),
-  createData(11,'France', 'FR', 67022000, 640679),
-  createData(12,'United Kingdom', 'GB', 67545757, 242495),
-  createData(13,'Russia', 'RU', 146793744, 17098246),
-  createData(14,'Nigeria', 'NG', 200962417, 923768),
-  createData(15,'Brazil', 'BR', 210147125, 8515767),
-];
-
 function SearchView() {
-  const [value, setValue] = React.useState(1);
-  const [indicate, setIndicate] = React.useState(true);
   const classes = useStyles();
   const dispatch = useDispatch();
+  const tabnumber = useSelector((state) => state.tabsReducer.value);
+  const rowdata = useSelector((state) => state.tabDataReducer.data[tabnumber][6]);
+  const val = useSelector((state) => state.tabDataReducer.data[tabnumber][7].id);
+  const res = useSelector((state) => state.tabDataReducer.data[tabnumber][7].res);
+  const formdata = useSelector((state) => state.tabDataReducer.data[tabnumber]);
+  const tabs = useSelector((state) => state.tabsReducer.tabs);
 
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
@@ -134,13 +117,8 @@ function SearchView() {
     setPage(0);
   };
 
-  React.useEffect(() => {
-    console.log("inside useEffect");
-  }, [indicate]);
-
   const handleChange = async (event, newValue) => {
-    setValue(newValue);
-    setIndicate(!indicate);
+    dispatch(setid({id:tabnumber,tabno: newValue}));
   };
 
   const [status, setStatus] = React.useState([
@@ -148,16 +126,12 @@ function SearchView() {
     { key: "Inactive", value: "I" },
   ]);
 
-  const clickme =(id)=>{
-    console.log(id);
-  }
-
   return (
     <div style={{ display: "flex" }}>
       <div style={{ width: "13%" }}>
         <Paper square style={{ height: "83vh", backgroundColor: "#ebeff2" }}>
           <Tabs 
-            value={value}
+            value={val}
             TabIndicatorProps={{
               style: {
                 backgroundColor: "#00b6d3",
@@ -182,30 +156,106 @@ function SearchView() {
       <div style={{ width: "87%", margin: "1.5vh 1.5vh 0vh 1.5vh" }}>
         <Paper className={classes.paper}>
           <form className={classes.root} noValidate autoComplete="off">
-            <TextField id="standard-basic" label="Name" size="small" />
-            <TextField id="standard-basic" label="Alternate Code" size="small"/>
-            <TextField id="standard-basic" select label="Status" size="small">
-              {status.map((stat) => (
-                <option key={stat.value} value={stat.value}>
-                  {stat.key}
-                </option>
-              ))}
-            </TextField>
-            <TextField id="standard-basic" label="Code Type" size="small" />
-            <TextField id="standard-basic" label="Code" size="small" />
-            <TextField id="standard-basic" label="Parent Name" size="small" />
-            <TextField id="standard-basic" label="Country" size="small" />
+            {val=== 1?
+              <>
+                <TextField id="standard-basic" label="Name" size="small" defaultValue={formdata[0].name}/>
+                <TextField id="standard-basic" label="Alternate Name" size="small" defaultValue={formdata[0].altname} />
+                <TextField id="standard-basic" select label="Status" size="small" defaultValue={formdata[0].status}>
+                  {status.map((stat) => (
+                    <option key={stat.value} value={stat.value}>
+                      {stat.key}
+                    </option>
+                  ))}
+                </TextField>
+                <TextField id="standard-basic" label="Code Type" size="small" defaultValue={formdata[0].codetype} />
+                <TextField id="standard-basic" label="Code" size="small" defaultValue={formdata[0].code} />
+                <TextField id="standard-basic" label="Parent Name" size="small" defaultValue={formdata[0].pname} />
+                <TextField id="standard-basic" label="Country" size="small" defaultValue={formdata[0].country} />
+              </> :
+              val === 2?
+              <>
+                <TextField id="standard-basic" label="Name" size="small" defaultValue={formdata[1].name} />
+                <TextField id="standard-basic" label="Alternate Name" size="small" defaultValue={formdata[1].altname}/>
+                <TextField id="standard-basic" select label="Status" size="small" defaultValue={formdata[1].status}>
+                  {status.map((stat) => (
+                    <option key={stat.value} value={stat.value}>
+                      {stat.key}
+                    </option>
+                  ))}
+                </TextField>
+                <TextField id="standard-basic" label="Code Type" size="small" defaultValue={formdata[1].codetype} />
+                <TextField id="standard-basic" label="Code" size="small" defaultValue={formdata[1].code}/>
+                <TextField id="standard-basic" label="Parent Name" size="small" defaultValue={formdata[1].pname} />
+                <TextField id="standard-basic" label="Country" size="small" defaultValue={formdata[1].country} />
+              </>  :
+              val === 3 ?
+              <>
+                <TextField id="standard-basic" label="Name" size="small" defaultValue={formdata[2].name}/>
+                <TextField id="standard-basic" label="Alternate Name" size="small" defaultValue={formdata[2].altname}/>
+                <TextField id="standard-basic" select label="Status" size="small" defaultValue={formdata[2].status}>
+                  {status.map((stat) => (
+                    <option key={stat.value} value={stat.value}>
+                      {stat.key}
+                    </option>
+                  ))}
+                </TextField>
+                <TextField id="standard-basic" label="Time Zone" size="small" defaultValue={formdata[2].tzone} />
+                <TextField id="standard-basic" label="Daylight Saving Time" size="small" defaultValue={formdata[2].dst} />
+                <TextField id="standard-basic" label="Code Type" size="small" defaultValue={formdata[2].codetype} />
+                <TextField id="standard-basic" label="Parent Name" size="small" defaultValue={formdata[2].pname} />
+              </> :
+              val ===4 ?
+              <>
+                <TextField id="standard-basic" label="Name" size="small" defaultValue={formdata[3].name}/>
+                <TextField id="standard-basic" label="Alternate Name" size="small" defaultValue={formdata[3].altname}/>
+                <TextField id="standard-basic" select label="Status" size="small" defaultValue={formdata[3].status}>
+                  {status.map((stat) => (
+                    <option key={stat.value} value={stat.value}>
+                      {stat.key}
+                    </option>
+                  ))}
+                </TextField>
+                <TextField id="standard-basic" label="Code Type" size="small" defaultValue={formdata[3].codetype} />
+              </> :
+              val ===5 ?
+              <>
+                <TextField id="standard-basic" label="Name" size="small" defaultValue={formdata[4].name}/>
+                <TextField id="standard-basic" select label="Status" size="small" defaultValue={formdata[4].status}>
+                  {status.map((stat) => (
+                    <option key={stat.value} value={stat.value}>
+                      {stat.key}
+                    </option>
+                  ))}
+                </TextField>
+                <TextField id="standard-basic" label="Code Type" size="small" defaultValue={formdata[4].codetype}/>
+                <TextField id="standard-basic" label="Code" size="small" defaultValue={formdata[4].code}/>
+                <TextField id="standard-basic" label="Parent Name" size="small" defaultValue={formdata[4].parent}/>
+                <TextField id="standard-basic" label="Country" size="small" defaultValue={formdata[4].country}/>
+                <TextField id="standard-basic" label="City" size="small" defaultValue={formdata[4].city}/>
+              </> :
+              <>
+                 <TextField id="standard-basic" label="Name" size="small" defaultValue={formdata[5].name}/>
+                 <TextField id="standard-basic" label="Type" size="small" defaultValue={formdata[5].type}/>
+                 <TextField id="standard-basic" label="Code" size="small" defaultValue={formdata[5].code}/>
+                 <TextField id="standard-basic" label="Code Type" size="small" defaultValue={formdata[5].codetype}/>
+                 <TextField id="standard-basic" label="Location Name" size="small" defaultValue={formdata[5].locname}/>
+                 <TextField id="standard-basic" label="Location Type" size="small" defaultValue={formdata[5].loctype}/>
+              </>
+          }
+            
           </form>
           <div className={classes.btn}>
             <Button
               variant="contained"
               size="small"
               style={{ backgroundColor: "#00b6d3", color: "#ffffff" }}
+              onClick={()=>dispatch(setres(tabnumber))}
             >
               <b>Search</b>
             </Button>
           </div>
         </Paper>
+        {res?
         <Paper className={classes.paper2} >
           <div style={{margin:"1vh",textIndent:"1vh"}}>Search Result</div>
         <TableContainer style={{maxHeight: '40vh'}}>
@@ -224,17 +274,26 @@ function SearchView() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => {
+            {rowdata.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => {
               return (
-                <TableRow hover role="checkbox" tabIndex={-1} key={row.code} onClick={()=>dispatch(addresult({id:row.id, res: rows[row.id-1]}))}>
-                  {columns.map((column) => {
-                    const value = row[column.id];
-                    return (
-                      <TableCell key={column.id} align={column.align} style={{borderBottom:".05rem solid #00b6d3",textAlign:"center"}}>
-                        {column.format && typeof value === 'number' ? column.format(value) : value}
+                <TableRow hover role="checkbox" tabIndex={-1} key={row.id} 
+                onClick={()=>{ tabs.length<10? dispatch(addresult({ id:0 ,res :rowdata[row.id-1] })) :
+                       window.alert("You can't open more than this much tabs. Please close one or more tabs to open a new one.")}}>
+                      <TableCell key="name" align="center" style={{borderBottom:".05rem solid #00b6d3",textAlign:"center"}}>
+                          {row.name}
                       </TableCell>
-                    );
-                  })}
+                      <TableCell key="status" align="center" style={{borderBottom:".05rem solid #00b6d3",textAlign:"center"}}>
+                      {row.status}
+                      </TableCell>
+                      <TableCell key="code" align="center" style={{borderBottom:".05rem solid #00b6d3",textAlign:"center"}}>
+                      {row.code}
+                      </TableCell>
+                      <TableCell key="parentname" align="center" style={{borderBottom:".05rem solid #00b6d3",textAlign:"center"}}>
+                      {row.pname}
+                      </TableCell>
+                      <TableCell key="parenttype" align="center" style={{borderBottom:".05rem solid #00b6d3",textAlign:"center"}}>
+                      {row.ptype}
+                      </TableCell>
                 </TableRow>
               );
             })}
@@ -244,14 +303,14 @@ function SearchView() {
       <TablePagination
         rowsPerPageOptions={[5,10]}
         component="div"
-        count={rows.length}
+        count={rowdata.length}
         rowsPerPage={rowsPerPage}
         page={page}
         onPageChange={handleChangePage}
         onRowsPerPageChange={handleChangeRowsPerPage}
         style={{textAlign:"center"}}
       />
-        </Paper>
+        </Paper> :<></>}
       </div>
     </div>
   );

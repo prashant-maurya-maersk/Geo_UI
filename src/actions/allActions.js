@@ -29,6 +29,21 @@ export const addresult =(data) =>({
 export const deletedatatab =(data) => ({
     type: 'DELETE_DATA',
     payload: data,
+});
+
+export const setinsidetab = (data) =>({
+    type: 'UPDATE_INSIDE_TAB',
+    payload:data,
+});
+
+export const setres =(data) =>({
+    type: 'SET_RES',
+    payload: data,
+});
+
+export const setid =(data) => ({
+    type: 'SET_ID',
+    payload: data,
 })
 
 

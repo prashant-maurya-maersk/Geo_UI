@@ -10,7 +10,7 @@ import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import Fade from "@material-ui/core/Fade";
 import MenuIcon from "@material-ui/icons/Menu";
-import { useDispatch } from "react-redux";
+import {useSelector, useDispatch } from "react-redux";
 import { addsearchtab } from "../actions/allActions";
 
 const useStyles = makeStyles((theme) => ({
@@ -73,13 +73,16 @@ function Header() {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const dispatch = useDispatch();
+  const tabs = useSelector((state) => state.tabsReducer.tabs);
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
 
   const addnewtab =() => {
-    dispatch(addsearchtab());
+    tabs.length<10 ?
+    dispatch(addsearchtab()) :
+    window.alert("You can't open more than this much tabs. Please close one or more tabs to open a new one.")
   }
 
   const handleClose = () => {

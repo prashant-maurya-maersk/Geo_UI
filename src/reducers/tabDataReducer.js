@@ -1,6 +1,7 @@
 const data1 = [];
 
-const newdata = [
+
+data1.push([
     {
         name:"",
         altname:"",
@@ -51,10 +52,190 @@ const newdata = [
         locname:"",
         loctype:"",
     },
-    [],
-];
-
-data1.push(newdata);
+    [
+        {
+            id:1,
+            name: "Bhubanswar",
+            status: "Active",
+            code: "BBSR",
+            pname: "India",
+            ptype: "Country",
+            details:{
+                city: [
+                    {
+                        name: "Bhubaneswar",
+                        activeflag :"",
+                        validfrom: "02-12-2000",
+                        validto: "02-12-2099",
+                        latlong:"",
+                        timezone:"IST",
+                        dst:"",
+                        desc:"",
+                    },
+                    {
+                        name: "Bhuvaneswar",
+                        activeflag :"",
+                        validfrom: "02-12-2000",
+                        validto: "02-12-2099",
+                        latlong:"",
+                        timezone:"IST",
+                        dst:"",
+                        desc:"",
+                    },
+                ],
+            altname:[],
+            altcode:[
+                    {
+                        ctype: "RKST",
+                        code: "I28"
+                    },
+                    {
+                        ctype: "RKTS",
+                        code: "528"
+                    },
+                ],
+            parent:[
+                {
+                    pname:"India",
+                    ptype:"Country"
+                },
+                ],
+            bda:[
+                {
+                    name:"Patia",
+                    type:"",
+                },
+                {
+                    name:"Khorda",
+                    type:"",
+                },
+            ],
+            },
+        },
+        {
+            id:2,
+            name: "Bangalore",
+            status: "Active",
+            code: "BLR",
+            pname: "India",
+            ptype: "Country",
+            details:{
+                city: [
+                    {
+                        name: "Bangalore",
+                        activeflag :"",
+                        validfrom: "02-12-2000",
+                        validto: "02-12-2099",
+                        latlong:"",
+                        timezone:"IST",
+                        dst:"",
+                        desc:"",
+                    },
+                    {
+                        name: "Bengaluru",
+                        activeflag :"",
+                        validfrom: "02-12-2000",
+                        validto: "02-12-2099",
+                        latlong:"",
+                        timezone:"IST",
+                        dst:"",
+                        desc:"",
+                    },
+                ],
+            altname:[],
+            altcode:[
+                    {
+                        ctype: "RKST",
+                        code: "I28"
+                    },
+                    {
+                        ctype: "RKTS",
+                        code: "528"
+                    },
+                ],
+            parent:[
+                {
+                    pname:"India",
+                    ptype:"Country"
+                },
+                ],
+            bda:[
+                {
+                    name:"Kengeri",
+                    type:"",
+                },
+                {
+                    name:"Jayanagar",
+                    type:"",
+                },
+            ],
+            },
+        },
+        {
+            id:3,
+            name: "Varanasi",
+            status: "Active",
+            code: "VNS",
+            pname: "India",
+            ptype: "Country",
+            details:{
+                city: [
+                    {
+                        name: "Varanasi",
+                        activeflag :"",
+                        validfrom: "02-12-2000",
+                        validto: "02-12-2099",
+                        latlong:"",
+                        timezone:"IST",
+                        dst:"",
+                        desc:"",
+                    },
+                    {
+                        name: "Banaras",
+                        activeflag :"",
+                        validfrom: "02-12-2000",
+                        validto: "02-12-2099",
+                        latlong:"",
+                        timezone:"IST",
+                        dst:"",
+                        desc:"",
+                    },
+                ],
+            altname:[],
+            altcode:[
+                    {
+                        ctype: "RKST",
+                        code: "I28"
+                    },
+                    {
+                        ctype: "RKTS",
+                        code: "528"
+                    },
+                ],
+            parent:[
+                {
+                    pname:"India",
+                    ptype:"Country"
+                },
+                ],
+            bda:[
+                {
+                    name:"Chaukia",
+                    type:"",
+                },
+                {
+                    name:"Godaulia",
+                    type:"",
+                },
+            ],
+            },
+        },
+    ],
+    {
+        id:1,
+        res:false,
+    },
+]);
 
 const initialValue ={
     data: data1,
@@ -65,7 +246,241 @@ export const tabDataReducer= (state = initialValue, action) => {
     switch(action.type){
         case "ADD_DATA_TAB":{ 
             const temp =[...state.data];
-            temp.push(newdata);
+            temp.push([
+                {
+                    name:"",
+                    altname:"",
+                    status:"",
+                    codetype:"",
+                    code:"",
+                    pname:"",
+                    country:"",
+                },
+                {
+                    name:"",
+                    altname:"",
+                    status:"",
+                    codetype:"",
+                    code:"",
+                    pname:"",
+                    country:"",
+                },
+                {
+                    name:"",
+                    altname:"",
+                    status:"",
+                    tzone:"",
+                    dst:"",
+                    codetype:"",
+                    pname:"",
+                },
+                {
+                    name:"",
+                    altname:"",
+                    status:"",
+                    codetype:"",
+                },
+                {
+                    name:"",
+                    status:"",
+                    codetype:"",
+                    code:"",
+                    parent:"",
+                    country:"",
+                    city:"",
+                },
+                {
+                    name:"",
+                    type:"",
+                    code:"",
+                    codetype:"",
+                    locname:"",
+                    loctype:"",
+                },
+                [
+                    {
+                        id:1,
+                        name: "Bhubanswar",
+                        status: "Active",
+                        code: "BBSR",
+                        pname: "India",
+                        ptype: "Country",
+                        details:{
+                            city: [
+                                {
+                                    name: "Bhubaneswar",
+                                    activeflag :"",
+                                    validfrom: "02-12-2000",
+                                    validto: "02-12-2099",
+                                    latlong:"",
+                                    timezone:"IST",
+                                    dst:"",
+                                    desc:"",
+                                },
+                                {
+                                    name: "Bhuvaneswar",
+                                    activeflag :"",
+                                    validfrom: "02-12-2000",
+                                    validto: "02-12-2099",
+                                    latlong:"",
+                                    timezone:"IST",
+                                    dst:"",
+                                    desc:"",
+                                },
+                            ],
+                        altname:[],
+                        altcode:[
+                                {
+                                    ctype: "RKST",
+                                    code: "I28"
+                                },
+                                {
+                                    ctype: "RKTS",
+                                    code: "528"
+                                },
+                            ],
+                        parent:[
+                            {
+                                pname:"India",
+                                ptype:"Country"
+                            },
+                            ],
+                        bda:[
+                            {
+                                name:"Patia",
+                                type:"",
+                            },
+                            {
+                                name:"Khorda",
+                                type:"",
+                            },
+                        ],
+                        },
+                    },
+                    {
+                        id:2,
+                        name: "Bangalore",
+                        status: "Active",
+                        code: "BLR",
+                        pname: "India",
+                        ptype: "Country",
+                        details:{
+                            city: [
+                                {
+                                    name: "Bangalore",
+                                    activeflag :"",
+                                    validfrom: "02-12-2000",
+                                    validto: "02-12-2099",
+                                    latlong:"",
+                                    timezone:"IST",
+                                    dst:"",
+                                    desc:"",
+                                },
+                                {
+                                    name: "Bengaluru",
+                                    activeflag :"",
+                                    validfrom: "02-12-2000",
+                                    validto: "02-12-2099",
+                                    latlong:"",
+                                    timezone:"IST",
+                                    dst:"",
+                                    desc:"",
+                                },
+                            ],
+                        altname:[],
+                        altcode:[
+                                {
+                                    ctype: "RKST",
+                                    code: "I28"
+                                },
+                                {
+                                    ctype: "RKTS",
+                                    code: "528"
+                                },
+                            ],
+                        parent:[
+                            {
+                                pname:"India",
+                                ptype:"Country"
+                            },
+                            ],
+                        bda:[
+                            {
+                                name:"Kengeri",
+                                type:"",
+                            },
+                            {
+                                name:"Jayanagar",
+                                type:"",
+                            },
+                        ],
+                        },
+                    },
+                    {
+                        id:3,
+                        name: "Varanasi",
+                        status: "Active",
+                        code: "VNS",
+                        pname: "India",
+                        ptype: "Country",
+                        details:{
+                            city: [
+                                {
+                                    name: "Varanasi",
+                                    activeflag :"",
+                                    validfrom: "02-12-2000",
+                                    validto: "02-12-2099",
+                                    latlong:"",
+                                    timezone:"IST",
+                                    dst:"",
+                                    desc:"",
+                                },
+                                {
+                                    name: "Banaras",
+                                    activeflag :"",
+                                    validfrom: "02-12-2000",
+                                    validto: "02-12-2099",
+                                    latlong:"",
+                                    timezone:"IST",
+                                    dst:"",
+                                    desc:"",
+                                },
+                            ],
+                        altname:[],
+                        altcode:[
+                                {
+                                    ctype: "RKST",
+                                    code: "I28"
+                                },
+                                {
+                                    ctype: "RKTS",
+                                    code: "528"
+                                },
+                            ],
+                        parent:[
+                            {
+                                pname:"India",
+                                ptype:"Country"
+                            },
+                            ],
+                        bda:[
+                            {
+                                name:"Chaukia",
+                                type:"",
+                            },
+                            {
+                                name:"Godaulia",
+                                type:"",
+                            },
+                        ],
+                        },
+                    },
+                ],
+                {
+                    id:1,
+                    res:false,
+                },
+            ]);
             return{
                 ...state,
                 data: temp,
@@ -96,6 +511,36 @@ export const tabDataReducer= (state = initialValue, action) => {
             return{
                 ...state,
                 data:[...arr1],
+            }
+        }
+
+        case 'UPDATE_INSIDE_TAB':{
+            const temp=[...state.data];
+            temp[action.payload.id].id=action.payload.tabnumber;
+            return{
+                ...state,
+                data:temp,
+            }
+        }
+
+        case 'SET_RES':{
+            const temp=[...state.data];
+            const temp2=temp[action.payload];
+            temp2[7].res=true;
+            temp[action.payload]=temp2;
+            return{
+                ...state,
+                data:temp,
+            }
+        }
+
+        case 'SET_ID':{
+            console.log(action.payload);
+            const temp=[...state.data];
+            temp[action.payload.id][7].id=action.payload.tabno;
+            return{
+                ...state,
+                data:temp,
             }
         }
 

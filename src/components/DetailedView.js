@@ -9,6 +9,8 @@ import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
+import { useDispatch, useSelector } from "react-redux";
+import { setinsidetab } from "../actions/allActions";
 
 const useStyles = makeStyles((theme) => ({
   tabs: {
@@ -63,8 +65,10 @@ const rows = [
 ];
 
 function DetailedView() {
-  const [value, setValue] = React.useState(0);
-  const [indicate, setIndicate] = React.useState(true);
+  const tnumber = useSelector((state) => state.tabsReducer.value);
+  const val = useSelector((state) => state.tabDataReducer.data[tnumber].id);
+  const data = useSelector((state) => state.tabDataReducer.data[tnumber].res.details);
+  const dispatch = useDispatch();
   const classes = useStyles();
   const [tabs, setTabs] = React.useState([
     "City",
@@ -74,13 +78,8 @@ function DetailedView() {
     "BDA",
   ]);
 
-  React.useEffect(() => {
-    console.log("inside useEffect");
-  }, [indicate]);
-
-  const handleChange = async (event, newValue) => {
-    setValue(newValue);
-    await setIndicate(!indicate);
+  const handleChange = (event, newValue) => {
+    dispatch(setinsidetab({id:tnumber,tabnumber:newValue}));
   };
 
   return (
@@ -99,7 +98,7 @@ function DetailedView() {
       <div style={{ margin: "3vh" }}>
         <Paper style={{backgroundColor: "#ebeff2",border: ".05rem solid #00b6d3", }}>
           <Tabs
-            value={value}
+            value={val}
             TabIndicatorProps={{
               style: {
                 backgroundColor: "#00b6d3",
@@ -135,28 +134,115 @@ function DetailedView() {
           </div>
           <div>
           <Table className={classes.table} aria-label="simple table">
-        <TableHead>
-          <TableRow>
-            <TableCell align="center" className={classes.cell}>Dessert (100g serving)</TableCell>
-            <TableCell align="center" className={classes.cell}>Calories</TableCell>
-            <TableCell align="center" className={classes.cell}>Fat&nbsp;(g)</TableCell>
-            <TableCell align="center" className={classes.cell}>Carbs&nbsp;(g)</TableCell>
-            <TableCell align="center" className={classes.cell}>Protein&nbsp;(g)</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {rows.map((row) => (
-            <TableRow key={row.name}>
-              <TableCell component="th" scope="row" align="center" className={classes.cell}>
-                {row.name}
-              </TableCell>
-              <TableCell align="center" className={classes.cell}>{row.calories}</TableCell>
-              <TableCell align="center" className={classes.cell}>{row.fat}</TableCell>
-              <TableCell align="center" className={classes.cell}>{row.carbs}</TableCell>
-              <TableCell align="center" className={classes.cell}>{row.protein}</TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
+            {val===0?
+               <>
+                 <TableHead>
+                   <TableRow>
+                     <TableCell align="center" className={classes.cell}>City Name</TableCell>
+                     <TableCell align="center" className={classes.cell}>Active Flag</TableCell>
+                     <TableCell align="center" className={classes.cell}>Valid From</TableCell>
+                     <TableCell align="center" className={classes.cell}>Valid To</TableCell>
+                     <TableCell align="center" className={classes.cell}>Latitude/Longitude</TableCell>
+                     <TableCell align="center" className={classes.cell}>Time Zone</TableCell>
+                     <TableCell align="center" className={classes.cell}>Daylight Saving Time</TableCell>
+                     <TableCell align="center" className={classes.cell}>Description</TableCell>
+                   </TableRow>
+                 </TableHead>
+                 <TableBody>
+                   {data.city.map((city) => (
+                     <TableRow key={city.name}>
+                       <TableCell component="th" scope="row" align="center" className={classes.cell}>
+                         {city.name}
+                       </TableCell>
+                       <TableCell align="center" className={classes.cell}>{city.validfrom}</TableCell>
+                       <TableCell align="center" className={classes.cell}>{city.validto}</TableCell>
+                       <TableCell align="center" className={classes.cell}>{city.activefalg}</TableCell>
+                       <TableCell align="center" className={classes.cell}>{city.latlong}</TableCell>
+                       <TableCell align="center" className={classes.cell}>{city.timezone}</TableCell>
+                       <TableCell align="center" className={classes.cell}>{city.dst}</TableCell>
+                       <TableCell align="center" className={classes.cell}>{city.desc}</TableCell>
+                     </TableRow>
+                   ))}
+                 </TableBody>
+               </> :
+               val ===1 ?
+               <>
+                 <TableHead>
+                   <TableRow>
+                     <TableCell align="center" className={classes.cell}>Name</TableCell>
+                     <TableCell align="center" className={classes.cell}>Description</TableCell>
+                     <TableCell align="center" className={classes.cell}>Status</TableCell>
+                   </TableRow>
+                 </TableHead>
+                 <TableBody>
+                   {data.altname.map((alt) => (
+                     <TableRow key={alt.name}>
+                       <TableCell component="th" scope="row" align="center" className={classes.cell}>
+                         {alt.name}
+                       </TableCell>
+                       <TableCell align="center" className={classes.cell}>{alt.desc}</TableCell>
+                       <TableCell align="center" className={classes.cell}>{alt.status}</TableCell>
+                     </TableRow>
+                   ))}
+                 </TableBody>
+               </> :
+               val === 2 ?
+               <>
+                 <TableHead>
+                   <TableRow>
+                     <TableCell align="center" className={classes.cell}>Code Type</TableCell>
+                     <TableCell align="center" className={classes.cell}>Code</TableCell>
+                   </TableRow>
+                 </TableHead>
+                 <TableBody>
+                   {data.altcode.map((alt) => (
+                     <TableRow key={alt.ctype}>
+                       <TableCell component="th" scope="row" align="center" className={classes.cell}>
+                         {alt.ctype}
+                       </TableCell>
+                       <TableCell align="center" className={classes.cell}>{alt.code}</TableCell>
+                     </TableRow>
+                   ))}
+                 </TableBody>
+               </> :
+               val === 3 ?
+               <>
+                  <TableHead>
+                   <TableRow>
+                     <TableCell align="center" className={classes.cell}>Parent Name</TableCell>
+                     <TableCell align="center" className={classes.cell}>Parent Type</TableCell>
+                   </TableRow>
+                 </TableHead>
+                 <TableBody>
+                   {data.parent.map((parent) => (
+                     <TableRow key={parent.pname}>
+                       <TableCell component="th" scope="row" align="center" className={classes.cell}>
+                         {parent.pname}
+                       </TableCell>
+                       <TableCell align="center" className={classes.cell}>{parent.ptype}</TableCell>
+                     </TableRow>
+                   ))}
+                 </TableBody>
+               </> :
+               <>
+                  <TableHead>
+                   <TableRow>
+                     <TableCell align="center" className={classes.cell}>Name</TableCell>
+                     <TableCell align="center" className={classes.cell}>Type</TableCell>
+                   </TableRow>
+                 </TableHead>
+                 <TableBody>
+                   {data.bda.map((bda) => (
+                     <TableRow key={bda.name}>
+                       <TableCell component="th" scope="row" align="center" className={classes.cell}>
+                         {bda.name}
+                       </TableCell>
+                       <TableCell align="center" className={classes.cell}>{bda.type}</TableCell>
+                     </TableRow>
+                   ))}
+                 </TableBody>
+               </>
+            }
       </Table>
           </div>
         </Paper>
