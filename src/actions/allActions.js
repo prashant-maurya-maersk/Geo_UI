@@ -44,7 +44,12 @@ export const setres =(data) =>({
 export const setid =(data) => ({
     type: 'SET_ID',
     payload: data,
-})
+});
+
+export const updateforms =(data) => ({
+    type: 'UPDATE_DATA',
+    payload: data,
+});
 
 
 

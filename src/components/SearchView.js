@@ -13,7 +13,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
 import { useDispatch, useSelector } from "react-redux";
-import { addresult, setid, setres } from "../actions/allActions";
+import { addresult, setid, setres, updateforms } from "../actions/allActions";
 
 const useStyles = makeStyles((theme) => ({
   tabs: {
@@ -77,28 +77,28 @@ const columns = [
     label: 'Code',
     minWidth: 170,
     align: 'right',
-    format: (value) => value.toLocaleString('en-US'),
   },
   {
     id: 'parentname',
     label: 'Parent\u00a0Name',
     minWidth: 170,
     align: 'right',
-    format: (value) => value.toLocaleString('en-US'),
   },
   {
     id: 'parenttype',
     label: 'Parent\u00a0Type',
     minWidth: 170,
     align: 'right',
-    format: (value) => value.toFixed(2),
   },
 ];
+
+
 
 function SearchView() {
   const classes = useStyles();
   const dispatch = useDispatch();
   const tabnumber = useSelector((state) => state.tabsReducer.value);
+  const tabl = useSelector((state) => state.tabsReducer.tabs);
   const rowdata = useSelector((state) => state.tabDataReducer.data[tabnumber][6]);
   const val = useSelector((state) => state.tabDataReducer.data[tabnumber][7].id);
   const res = useSelector((state) => state.tabDataReducer.data[tabnumber][7].res);
@@ -107,6 +107,8 @@ function SearchView() {
 
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
+  const [tabno, setTabno] = React.useState(tabnumber);
+  const [tablen, setTablen] = React.useState(tabl.length);
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -121,10 +123,33 @@ function SearchView() {
     dispatch(setid({id:tabnumber,tabno: newValue}));
   };
 
+  const [form1, setForm1] = React.useState(formdata[0]);
+  const [form2, setForm2] = React.useState(formdata[1]);
+  const [form3, setForm3] = React.useState(formdata[2]);
+  const [form4, setForm4] = React.useState(formdata[3]);
+  const [form5, setForm5] = React.useState(formdata[4]);
+  const [form6, setForm6] = React.useState(formdata[5]);
+
+
   const [status, setStatus] = React.useState([
     { key: "Active", value: "A" },
     { key: "Inactive", value: "I" },
   ]);
+
+  React.useEffect(() => {
+    console.log(tablen + "  " + tabl.length);
+    if(tablen <= tabl.length)
+       dispatch(updateforms({id: tabno,details:[form1,form2,form3,form4,form5,form6]}));
+    setForm1(formdata[0]);
+    setForm2(formdata[1]);
+    setForm3(formdata[2]);
+    setForm4(formdata[3]);
+    setForm5(formdata[4]);
+    setForm6(formdata[5]);
+    setTabno(tabnumber);
+    setTablen(tabl.length);
+    // eslint-disable-next-line
+  },[formdata]);
 
   return (
     <div style={{ display: "flex" }}>
@@ -158,88 +183,88 @@ function SearchView() {
           <form className={classes.root} noValidate autoComplete="off">
             {val=== 1?
               <>
-                <TextField id="standard-basic" label="Name" size="small" defaultValue={formdata[0].name}/>
-                <TextField id="standard-basic" label="Alternate Name" size="small" defaultValue={formdata[0].altname} />
-                <TextField id="standard-basic" select label="Status" size="small" defaultValue={formdata[0].status}>
+                <TextField id="standard-basic" label="Name" size="small" value={form1.name} onChange={(event) =>{const temp={...form1}; temp.name=event.target.value; setForm1(temp); }} />
+                <TextField id="standard-basic" label="Alternate Name" size="small" value={form1.altname} onChange={(event) =>{const temp={...form1}; temp.altname=event.target.value; setForm1(temp); }} />
+                <TextField id="standard-basic" select label="Status" size="small" value={form1.status} onChange={(event) =>{const temp={...form1}; temp.status=event.target.value; setForm1(temp); }}>
                   {status.map((stat) => (
                     <option key={stat.value} value={stat.value}>
                       {stat.key}
                     </option>
                   ))}
                 </TextField>
-                <TextField id="standard-basic" label="Code Type" size="small" defaultValue={formdata[0].codetype} />
-                <TextField id="standard-basic" label="Code" size="small" defaultValue={formdata[0].code} />
-                <TextField id="standard-basic" label="Parent Name" size="small" defaultValue={formdata[0].pname} />
-                <TextField id="standard-basic" label="Country" size="small" defaultValue={formdata[0].country} />
+                <TextField id="standard-basic" label="Code Type" size="small" value={form1.codetype} onChange={(event) =>{const temp={...form1}; temp.codetype=event.target.value; setForm1(temp); }}/>
+                <TextField id="standard-basic" label="Code" size="small" value={form1.code} onChange={(event) =>{const temp={...form1}; temp.code=event.target.value; setForm1(temp); }}/>
+                <TextField id="standard-basic" label="Parent Name" size="small" value={form1.pname} onChange={(event) =>{const temp={...form1}; temp.pname=event.target.value; setForm1(temp); }}/>
+                <TextField id="standard-basic" label="Country" size="small" value={form1.country} onChange={(event) =>{const temp={...form1}; temp.country=event.target.value; setForm1(temp); }}/>
               </> :
               val === 2?
               <>
-                <TextField id="standard-basic" label="Name" size="small" defaultValue={formdata[1].name} />
-                <TextField id="standard-basic" label="Alternate Name" size="small" defaultValue={formdata[1].altname}/>
-                <TextField id="standard-basic" select label="Status" size="small" defaultValue={formdata[1].status}>
+                <TextField id="standard-basic" label="Name" size="small" value={form2.name} onChange={(event) =>{const temp={...form2}; temp.name=event.target.value; setForm2(temp); }}/>
+                <TextField id="standard-basic" label="Alternate Name" size="small" value={form2.altname} onChange={(event) =>{const temp={...form2}; temp.altname=event.target.value; setForm2(temp); }}/>
+                <TextField id="standard-basic" select label="Status" size="small" value={form2.status} onChange={(event) =>{const temp={...form2}; temp.status=event.target.value; setForm2(temp); }}>
                   {status.map((stat) => (
                     <option key={stat.value} value={stat.value}>
                       {stat.key}
                     </option>
                   ))}
                 </TextField>
-                <TextField id="standard-basic" label="Code Type" size="small" defaultValue={formdata[1].codetype} />
-                <TextField id="standard-basic" label="Code" size="small" defaultValue={formdata[1].code}/>
-                <TextField id="standard-basic" label="Parent Name" size="small" defaultValue={formdata[1].pname} />
-                <TextField id="standard-basic" label="Country" size="small" defaultValue={formdata[1].country} />
+                <TextField id="standard-basic" label="Code Type" size="small" value={form2.codetype} onChange={(event) =>{const temp={...form2}; temp.codetype=event.target.value; setForm2(temp); }}/>
+                <TextField id="standard-basic" label="Code" size="small" value={form2.code} onChange={(event) =>{const temp={...form2}; temp.code=event.target.value; setForm2(temp); }}/>
+                <TextField id="standard-basic" label="Parent Name" size="small" value={form2.pname} onChange={(event) =>{const temp={...form2}; temp.pname=event.target.value; setForm2(temp); }}/>
+                <TextField id="standard-basic" label="Country" size="small" value={form2.country} onChange={(event) =>{const temp={...form2}; temp.country=event.target.value; setForm2(temp); }}/>
               </>  :
               val === 3 ?
               <>
-                <TextField id="standard-basic" label="Name" size="small" defaultValue={formdata[2].name}/>
-                <TextField id="standard-basic" label="Alternate Name" size="small" defaultValue={formdata[2].altname}/>
-                <TextField id="standard-basic" select label="Status" size="small" defaultValue={formdata[2].status}>
+                <TextField id="standard-basic" label="Name" size="small" value={form3.name} onChange={(event) =>{const temp={...form3}; temp.name=event.target.value; setForm3(temp); }}/>
+                <TextField id="standard-basic" label="Alternate Name" size="small" value={form3.altname} onChange={(event) =>{const temp={...form3}; temp.altname=event.target.value; setForm3(temp); }}/>
+                <TextField id="standard-basic" select label="Status" size="small" value={form3.status} onChange={(event) =>{const temp={...form3}; temp.status=event.target.value; setForm3(temp); }}>
                   {status.map((stat) => (
                     <option key={stat.value} value={stat.value}>
                       {stat.key}
                     </option>
                   ))}
                 </TextField>
-                <TextField id="standard-basic" label="Time Zone" size="small" defaultValue={formdata[2].tzone} />
-                <TextField id="standard-basic" label="Daylight Saving Time" size="small" defaultValue={formdata[2].dst} />
-                <TextField id="standard-basic" label="Code Type" size="small" defaultValue={formdata[2].codetype} />
-                <TextField id="standard-basic" label="Parent Name" size="small" defaultValue={formdata[2].pname} />
+                <TextField id="standard-basic" label="Time Zone" size="small" value={form3.tzone} onChange={(event) =>{const temp={...form3}; temp.tzone=event.target.value; setForm3(temp); }}/>
+                <TextField id="standard-basic" label="Daylight Saving Time" size="small" value={form3.dst} onChange={(event) =>{const temp={...form3}; temp.dst=event.target.value; setForm3(temp); }}/>
+                <TextField id="standard-basic" label="Code Type" size="small" value={form3.codetype} onChange={(event) =>{const temp={...form3}; temp.codetype=event.target.value; setForm3(temp); }}/>
+                <TextField id="standard-basic" label="Parent Name" size="small" value={form3.pname} onChange={(event) =>{const temp={...form3}; temp.pname=event.target.value; setForm3(temp); }}/>
               </> :
               val ===4 ?
               <>
-                <TextField id="standard-basic" label="Name" size="small" defaultValue={formdata[3].name}/>
-                <TextField id="standard-basic" label="Alternate Name" size="small" defaultValue={formdata[3].altname}/>
-                <TextField id="standard-basic" select label="Status" size="small" defaultValue={formdata[3].status}>
+                <TextField id="standard-basic" label="Name" size="small" value={form4.name} onChange={(event) =>{const temp={...form4}; temp.name=event.target.value; setForm4(temp); }}/>
+                <TextField id="standard-basic" label="Alternate Name" size="small" value={form4.altname} onChange={(event) =>{const temp={...form4}; temp.altname=event.target.value; setForm4(temp); }}/>
+                <TextField id="standard-basic" select label="Status" size="small" value={form4.status} onChange={(event) =>{const temp={...form4}; temp.status=event.target.value; setForm4(temp); }}>
                   {status.map((stat) => (
                     <option key={stat.value} value={stat.value}>
                       {stat.key}
                     </option>
                   ))}
                 </TextField>
-                <TextField id="standard-basic" label="Code Type" size="small" defaultValue={formdata[3].codetype} />
+                <TextField id="standard-basic" label="Code Type" size="small" value={form4.codetype} onChange={(event) =>{const temp={...form4}; temp.codetype=event.target.value; setForm4(temp); }}/>
               </> :
               val ===5 ?
               <>
-                <TextField id="standard-basic" label="Name" size="small" defaultValue={formdata[4].name}/>
-                <TextField id="standard-basic" select label="Status" size="small" defaultValue={formdata[4].status}>
+                <TextField id="standard-basic" label="Name" size="small" value={form5.name} onChange={(event) =>{const temp={...form5}; temp.name=event.target.value; setForm5(temp); }}/>
+                <TextField id="standard-basic" select label="Status" size="small" value={form5.status} onChange={(event) =>{const temp={...form5}; temp.status=event.target.value; setForm5(temp); }}>
                   {status.map((stat) => (
                     <option key={stat.value} value={stat.value}>
                       {stat.key}
                     </option>
                   ))}
                 </TextField>
-                <TextField id="standard-basic" label="Code Type" size="small" defaultValue={formdata[4].codetype}/>
-                <TextField id="standard-basic" label="Code" size="small" defaultValue={formdata[4].code}/>
-                <TextField id="standard-basic" label="Parent Name" size="small" defaultValue={formdata[4].parent}/>
-                <TextField id="standard-basic" label="Country" size="small" defaultValue={formdata[4].country}/>
-                <TextField id="standard-basic" label="City" size="small" defaultValue={formdata[4].city}/>
+                <TextField id="standard-basic" label="Code Type" size="small" value={form5.codetype} onChange={(event) =>{const temp={...form5}; temp.codetype=event.target.value; setForm5(temp); }}/>
+                <TextField id="standard-basic" label="Code" size="small" value={form5.code} onChange={(event) =>{const temp={...form5}; temp.code=event.target.value; setForm5(temp); }}/>
+                <TextField id="standard-basic" label="Parent Name" size="small" value={form5.parent} onChange={(event) =>{const temp={...form5}; temp.parent=event.target.value; setForm5(temp); }}/>
+                <TextField id="standard-basic" label="Country" size="small" value={form5.country} onChange={(event) =>{const temp={...form5}; temp.country=event.target.value; setForm5(temp); }}/>
+                <TextField id="standard-basic" label="City" size="small" value={form5.city} onChange={(event) =>{const temp={...form5}; temp.city=event.target.value; setForm5(temp); }}/>
               </> :
               <>
-                 <TextField id="standard-basic" label="Name" size="small" defaultValue={formdata[5].name}/>
-                 <TextField id="standard-basic" label="Type" size="small" defaultValue={formdata[5].type}/>
-                 <TextField id="standard-basic" label="Code" size="small" defaultValue={formdata[5].code}/>
-                 <TextField id="standard-basic" label="Code Type" size="small" defaultValue={formdata[5].codetype}/>
-                 <TextField id="standard-basic" label="Location Name" size="small" defaultValue={formdata[5].locname}/>
-                 <TextField id="standard-basic" label="Location Type" size="small" defaultValue={formdata[5].loctype}/>
+                 <TextField id="standard-basic" label="Name" size="small" value={form6.name} onChange={(event) =>{const temp={...form6}; temp.name=event.target.value; setForm6(temp); }}/>
+                 <TextField id="standard-basic" label="Type" size="small" value={form6.type} onChange={(event) =>{const temp={...form6}; temp.type=event.target.value; setForm6(temp); }}/>
+                 <TextField id="standard-basic" label="Code" size="small" value={form6.code} onChange={(event) =>{const temp={...form6}; temp.code=event.target.value; setForm6(temp); }}/>
+                 <TextField id="standard-basic" label="Code Type" size="small" value={form6.codetype} onChange={(event) =>{const temp={...form6}; temp.codetype=event.target.value; setForm6(temp); }}/>
+                 <TextField id="standard-basic" label="Location Name" size="small" value={form6.locname} onChange={(event) =>{const temp={...form6}; temp.locname=event.target.value; setForm6(temp); }}/>
+                 <TextField id="standard-basic" label="Location Type" size="small" value={form6.loctype} onChange={(event) =>{const temp={...form6}; temp.loctype=event.target.value; setForm6(temp); }}/>
               </>
           }
             

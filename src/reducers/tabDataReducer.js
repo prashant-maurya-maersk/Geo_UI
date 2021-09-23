@@ -546,57 +546,57 @@ export const tabDataReducer= (state = initialValue, action) => {
 
         case "UPDATE_DATA":{
             const temp =[...state.data];
-            if(action.payload.row === 0 ){
-                temp[action.payload.id][0].name = action.payload.data.name;
-                temp[action.payload.id][0].altname = action.payload.data.altname;
-                temp[action.payload.id][0].status = action.payload.data.status;
-                temp[action.payload.id][0].codetype = action.payload.data.codetype;
-                temp[action.payload.id][0].code = action.payload.data.code;
-                temp[action.payload.id][0].pname = action.payload.data.pname;
-                temp[action.payload.id][0].country = action.payload.data.country;
-            }
-            else if(action.payload.row === 1){
-                temp[action.payload.id][1].name = action.payload.data.name;
-                temp[action.payload.id][1].altname = action.payload.data.altname;
-                temp[action.payload.id][1].status = action.payload.data.status;
-                temp[action.payload.id][1].codetype = action.payload.data.codetype;
-                temp[action.payload.id][1].code = action.payload.data.code;
-                temp[action.payload.id][1].pname = action.payload.data.pname;
-                temp[action.payload.id][1].country = action.payload.data.country;
-            }
-            else if(action.payload.row === 2){
-                temp[action.payload.id][2].name = action.payload.data.name;
-                temp[action.payload.id][2].altname = action.payload.data.altname;
-                temp[action.payload.id][2].status = action.payload.data.status;
-                temp[action.payload.id][2].tzone = action.payload.data.tzone;
-                temp[action.payload.id][2].dst = action.payload.data.dst;
-                temp[action.payload.id][2].codetype = action.payload.data.codetype;
-                temp[action.payload.id][2].pname = action.payload.data.pname;
-            }
-            else if(action.payload.row === 3){
-                temp[action.payload.id][3].name = action.payload.data.name;
-                temp[action.payload.id][3].altname = action.payload.data.altname;
-                temp[action.payload.id][3].status = action.payload.data.status;
-                temp[action.payload.id][3].codetype = action.payload.data.codetype;
-            }
-            else if(action.payload.row === 4){
-                temp[action.payload.id][4].name = action.payload.data.name;
-                temp[action.payload.id][4].status = action.payload.data.status;
-                temp[action.payload.id][4].codetype = action.payload.data.codetype;
-                temp[action.payload.id][4].code = action.payload.data.code;
-                temp[action.payload.id][4].parent = action.payload.data.parent;
-                temp[action.payload.id][4].country = action.payload.data.country;
-                temp[action.payload.id][4].city = action.payload.data.city;
-            }
-            else{
-                temp[action.payload.id][5].name = action.payload.data.name;
-                temp[action.payload.id][5].type = action.payload.data.type;
-                temp[action.payload.id][5].code = action.payload.data.code;
-                temp[action.payload.id][5].codetype = action.payload.data.codetype;
-                temp[action.payload.id][5].locname = action.payload.data.locname;
-                temp[action.payload.id][5].loctype = action.payload.data.loctype;
-                
-            }
+            const form1=action.payload.details[0];
+            const form2=action.payload.details[1];
+            const form3=action.payload.details[2];
+            const form4=action.payload.details[3];
+            const form5=action.payload.details[4];
+            const form6=action.payload.details[5];
+           
+                temp[action.payload.id][0].name = form1.name;
+                temp[action.payload.id][0].altname = form1.altname;
+                temp[action.payload.id][0].status = form1.status;
+                temp[action.payload.id][0].codetype = form1.codetype;
+                temp[action.payload.id][0].code = form1.code;
+                temp[action.payload.id][0].pname = form1.pname;
+                temp[action.payload.id][0].country = form1.country;
+            
+                temp[action.payload.id][1].name = form2.name;
+                temp[action.payload.id][1].altname = form2.altname;
+                temp[action.payload.id][1].status = form2.status;
+                temp[action.payload.id][1].codetype = form2.codetype;
+                temp[action.payload.id][1].code = form2.code;
+                temp[action.payload.id][1].pname = form2.pname;
+                temp[action.payload.id][1].country = form2.country;
+            
+                temp[action.payload.id][2].name = form3.name;
+                temp[action.payload.id][2].altname = form3.altname;
+                temp[action.payload.id][2].status = form3.status;
+                temp[action.payload.id][2].tzone = form3.tzone;
+                temp[action.payload.id][2].dst = form3.dst;
+                temp[action.payload.id][2].codetype = form3.codetype;
+                temp[action.payload.id][2].pname = form3.pname;
+            
+                temp[action.payload.id][3].name = form4.name;
+                temp[action.payload.id][3].altname = form4.altname;
+                temp[action.payload.id][3].status = form4.status;
+                temp[action.payload.id][3].codetype = form4.codetype;
+            
+                temp[action.payload.id][4].name = form5.name;
+                temp[action.payload.id][4].status = form5.status;
+                temp[action.payload.id][4].codetype = form5.codetype;
+                temp[action.payload.id][4].code = form5.code;
+                temp[action.payload.id][4].parent = form5.parent;
+                temp[action.payload.id][4].country = form5.country;
+                temp[action.payload.id][4].city = form5.city;
+            
+                temp[action.payload.id][5].name = form6.name;
+                temp[action.payload.id][5].type = form6.type;
+                temp[action.payload.id][5].code = form6.code;
+                temp[action.payload.id][5].codetype = form6.codetype;
+                temp[action.payload.id][5].locname = form6.locname;
+                temp[action.payload.id][5].loctype = form6.loctype;
+            
             return{
                 ...state,
                 data:[...temp],
