@@ -2,6 +2,8 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## To Run the project, after pulling it into local machine , rum command `npm i`. It will install all the required dependencies into the project.
+
 ## Available Scripts
 
 In the project directory, you can run:
