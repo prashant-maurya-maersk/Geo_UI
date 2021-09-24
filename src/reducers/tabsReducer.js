@@ -1,6 +1,8 @@
 const initialValue={
     tabs:[0],
     value:0,
+    deltab:-1,
+    indicate:true,
 }
 
 export const tabsReducer =(state = initialValue,action) =>{
@@ -24,7 +26,9 @@ export const tabsReducer =(state = initialValue,action) =>{
             arr.splice(action.payload,1);
             return{
                 ...state,
-                tabs:[...arr]
+                tabs:[...arr],
+                deltab:action.payload,
+                indicate: !state.indicate,
             }
         }
 
