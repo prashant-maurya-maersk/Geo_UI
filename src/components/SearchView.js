@@ -14,6 +14,7 @@ import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
 import { useDispatch, useSelector } from "react-redux";
 import { addresult, setid, setres, updateforms } from "../actions/allActions";
+import axios from "axios";
 
 const useStyles = makeStyles((theme) => ({
   tabs: {
@@ -133,6 +134,29 @@ function SearchView() {
   const handleChange = async (event, newValue) => {
     dispatch(setid({id:tabnumber,tabno: newValue}));
   };
+
+  const getresult = async() =>{
+    try {
+      var response;
+      if (val === 1) {
+        response = await axios.get("http://localhost:8080/city");
+      } else if (val === 2) {
+        response = await axios.get("http://localhost:8080/state", form2);
+      } else if (val === 3) {
+        response = await axios.get("http://localhost:8080/country", form3);
+      } else if (val === 4) {
+        response = await axios.get("http://localhost:8080/continent", form4);
+      } else if (val === 5) {
+        response = await axios.get("http://localhost:8080/postalcode", form5);
+      } else {
+        response = await axios.get("http://localhost:8080/bda", form6);
+      }
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
+
+  }
 
   const [form1, setForm1] = React.useState(formdata[0]);
   const [form2, setForm2] = React.useState(formdata[1]);
@@ -320,7 +344,8 @@ function SearchView() {
               variant="contained"
               size="small"
               style={{ backgroundColor: "#00b6d3", color: "#ffffff" }}
-              onClick={()=>dispatch(setres(tabnumber))}
+              // onClick={()=>dispatch(setres(tabnumber))}
+              onClick={getresult}
             >
               <b>Search</b>
             </Button>

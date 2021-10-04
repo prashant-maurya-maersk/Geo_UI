@@ -51,5 +51,10 @@ export const updateforms =(data) => ({
     payload: data,
 });
 
+export const donothing =(data) => ({
+    type: 'DO_NOTHING',
+    payload: data,
+});
+
 
 
