@@ -64,7 +64,7 @@ const tabs = [
 function DetailedView() {
   const tnumber = useSelector((state) => state.tabsReducer.value);
   const val = useSelector((state) => state.tabDataReducer.data[tnumber].id);
-  const data = useSelector((state) => state.tabDataReducer.data[tnumber].res.details);
+  const data = useSelector((state) => state.tabDataReducer.data[tnumber].res);
   const dispatch = useDispatch();
   const classes = useStyles();
 
@@ -146,7 +146,7 @@ function DetailedView() {
                        </TableCell>
                        <TableCell align="center" className={classes.cell}>{city.validfrom}</TableCell>
                        <TableCell align="center" className={classes.cell}>{city.validto}</TableCell>
-                       <TableCell align="center" className={classes.cell}>{city.activefalg}</TableCell>
+                       <TableCell align="center" className={classes.cell}>{city.activeflag}</TableCell>
                        <TableCell align="center" className={classes.cell}>{city.latlong}</TableCell>
                        <TableCell align="center" className={classes.cell}>{city.timezone}</TableCell>
                        <TableCell align="center" className={classes.cell}>{city.dst}</TableCell>

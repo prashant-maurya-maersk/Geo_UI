@@ -13,7 +13,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
 import { useDispatch, useSelector } from "react-redux";
-import { addresult, setid, setres, updateforms } from "../actions/allActions";
+import { adddataresult, addresult, setid, setres, updateforms } from "../actions/allActions";
 import axios from "axios";
 
 const useStyles = makeStyles((theme) => ({
@@ -118,7 +118,7 @@ function SearchView() {
   const flag = useSelector((state)=> state.tabsReducer.indicate);
 
   const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(10);
+  const [rowsPerPage, setRowsPerPage] = React.useState(5);
   const [tabno, setTabno] = React.useState(tabnumber);
   const [tablen, setTablen] = React.useState(tabl.length);
 
@@ -135,23 +135,34 @@ function SearchView() {
     dispatch(setid({id:tabnumber,tabno: newValue}));
   };
 
+  const handlenewresult = async (rowid) => {
+    try{
+      var response = await axios.get('http://localhost:8080/detail',{headers: { id : rowid}});
+      console.log(response);
+      dispatch(addresult({ id:0 ,res : response.data}));
+    }catch(error){
+      console.log(error);
+    }
+  }
+
   const getresult = async() =>{
     try {
       var response;
       if (val === 1) {
-        response = await axios.get("http://localhost:8080/city");
+        response = await axios.get('http://localhost:8080/state',{ headers: form1 });
       } else if (val === 2) {
-        response = await axios.get("http://localhost:8080/state", form2);
+        response = await axios.get('http://localhost:8080/state',{ headers: form2 });
       } else if (val === 3) {
-        response = await axios.get("http://localhost:8080/country", form3);
+        response = await axios.get('http://localhost:8080/state',{ headers: form3 });
       } else if (val === 4) {
-        response = await axios.get("http://localhost:8080/continent", form4);
+        response = await axios.get('http://localhost:8080/state',{ headers: form4 });
       } else if (val === 5) {
-        response = await axios.get("http://localhost:8080/postalcode", form5);
+        response = await axios.get('http://localhost:8080/state',{ headers: form5 });
       } else {
-        response = await axios.get("http://localhost:8080/bda", form6);
+        response = await axios.get('http://localhost:8080/state',{ headers: form6 });
       }
-      console.log(response);
+      console.log(response.data);
+      dispatch(adddataresult({id: tabnumber, data: response.data}));
     } catch (error) {
       console.log(error);
     }
@@ -188,7 +199,7 @@ function SearchView() {
   return (
     <div style={{ display: "flex" }}>
       <div style={{ width: "13%" }}>
-        <Paper square style={{ height: "83vh", backgroundColor: "#ebeff2" }}>
+        <Paper square style={{ height: "82vh", backgroundColor: "#ebeff2" }}>
           <Tabs 
             value={val}
             TabIndicatorProps={{
@@ -372,8 +383,8 @@ function SearchView() {
           <TableBody>
             {rowdata.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => {
               return (
-                <TableRow hover role="checkbox" tabIndex={-1} key={row.id} 
-                onClick={()=>{ tabs.length<10? dispatch(addresult({ id:0 ,res :rowdata[row.id-1] })) :
+                <TableRow hover role="checkbox" tabIndex={-1} key={row.rowid} 
+                onClick={()=>{ tabs.length<10? /* dispatch(addresult({ id:0 ,res :rowdata[row.id-1] })) */handlenewresult(row.rowid) :
                        window.alert("You can't open more than this much tabs. Please close one or more tabs to open a new one.")}}>
                       <TableCell key="name" align="center" style={{borderBottom:".05rem solid #00b6d3",textAlign:"center"}}>
                           {row.name}

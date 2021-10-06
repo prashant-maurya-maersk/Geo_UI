@@ -51,8 +51,8 @@ export const updateforms =(data) => ({
     payload: data,
 });
 
-export const donothing =(data) => ({
-    type: 'DO_NOTHING',
+export const adddataresult = (data) => ({
+    type: 'ADD_DATA_RESULT',
     payload: data,
 });
 

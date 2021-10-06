@@ -38,9 +38,6 @@ export const tabsReducer =(state = initialValue,action) =>{
                 value:action.payload,
             }
         }
-
-        case 'DO_NOTHING':
-            return state;
         
         default: return state;
     }
