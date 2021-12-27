@@ -3,20 +3,24 @@ import { makeStyles, useTheme } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Button from "@material-ui/core/Button";
-import MaerskIcon from "../assets/maersk.png";
+import MaerskIcon from "../assets/Maersk_Logo_RGB2-cropped.svg";
 import MaerskIcon2 from "../assets/maersk-logo.png";
 import { Typography, useMediaQuery } from "@material-ui/core";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import Fade from "@material-ui/core/Fade";
 import MenuIcon from "@material-ui/icons/Menu";
-import {useSelector, useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { addsearchtab } from "../actions/allActions";
+import "./../../node_modules/@maersk-global/fonts/maeu/fonts.css";
+import "@maersk-global/fonts/maeu/fonts.css";
+import '@maersk-global/mds-foundations/foundations.css';
+import "@maersk-global/mds-design-tokens/maersk/light/web/css/design-tokens.css"; 
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles((theme) => ({ 
   root: {
     flexGrow: 1,
-  },
+  }, 
   menuButton: {
     marginRight: theme.spacing(2),
   },
@@ -48,21 +52,23 @@ const useStyles = makeStyles((theme) => ({
   },
   btn1: {
     background: "#FFFFFF",
-    opacity: "90%",
+    // opacity: "90%",
     fontSize: ".7vw",
-    border: ".1vh solid #00b6d3",
+    border: ".1vh solid ##CFCFCF",
     marginLeft: "-1vh",
+    textTransform: "none",
   },
   btn2: {
     background: "#FFFFFF",
-    opacity: "90%",
+    // opacity: "90%",
     fontSize: ".7vw",
-    border: ".1vh solid #00b6d3",
+    border: ".1vh solid #CFCFCF",
     position: "absolute",
     bottom: 0,
     right: 0,
     marginRight: "1vh",
     marginBottom: "1vh",
+    textTransform: "none",
   },
 }));
 
@@ -79,11 +85,13 @@ function Header() {
     setAnchorEl(event.currentTarget);
   };
 
-  const addnewtab =() => {
-    tabs.length<10 ?
-    dispatch(addsearchtab()) :
-    window.alert("You can't open more than this much tabs. Please close one or more tabs to open a new one.")
-  }
+  const addnewtab = () => {
+    tabs.length < 10
+      ? dispatch(addsearchtab())
+      : window.alert(
+          "You can't open more than this much tabs. Please close one or more tabs to open a new one."
+        );
+  };
 
   const handleClose = () => {
     setAnchorEl(null);
@@ -91,7 +99,7 @@ function Header() {
 
   return (
     <div>
-      <AppBar position="static" style={{ backgroundColor: "#00b6d3" }}>
+      <AppBar position="static" style={{ backgroundColor: "#42B0D5" }}>
         <Toolbar>
           {isSmall ? (
             <>
@@ -107,7 +115,8 @@ function Header() {
               </div>
               <div className={classes.con2}>
                 <b>
-                  <p>GEOGRAPHY MASTER DATA</p>
+                  <div class="mds-font--display-3">GEOGRAPHY MASTER DATA</div>
+                  {/* <p>GEOGRAPHY MASTER DATA</p> */}
                 </b>
               </div>
               <div style={{ width: "15%" }}>
@@ -148,6 +157,7 @@ function Header() {
                     size="small"
                     className={classes.btn1}
                     onClick={addnewtab}
+                    
                   >
                     <b>Search</b>
                   </Button>

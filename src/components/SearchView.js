@@ -13,19 +13,22 @@ import TableHead from '@material-ui/core/TableHead';
 import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
 import { useDispatch, useSelector } from "react-redux";
-import { adddataresult, addresult, setid, setres, updateforms } from "../actions/allActions";
+import { adddataresult, addresult, setid, updateforms } from "../actions/allActions";
 import axios from "axios";
+import "@maersk-global/fonts/maeu/fonts.css";
+import '@maersk-global/mds-foundations/foundations.css';
+import "@maersk-global/mds-design-tokens/maersk/light/web/css/design-tokens.css"; 
 
 const useStyles = makeStyles((theme) => ({
   tabs: {
     textTransform: "none",
-    borderBottom: ".05rem solid #00b6d3",
+    borderBottom: ".05rem solid #42B0D5",
     wordWrap:"break-word"
   },
   panel: {
     "& .MuiTab-textColorInherit.Mui-selected": {
       color: "#ffffff",
-      backgroundColor: "#00b6d3",
+      backgroundColor: "#42B0D5",
     },
   },
   heading: {
@@ -33,7 +36,7 @@ const useStyles = makeStyles((theme) => ({
     marginTop: "4vh",
     paddingBottom: "1vh",
     fontWeight: 500,
-    borderBottom: ".05rem solid #00b6d3",
+    borderBottom: ".05rem solid #42B0D5",
   },
   headingchild: {
     alignItems: "start",
@@ -59,13 +62,13 @@ const useStyles = makeStyles((theme) => ({
     height: "27vh",
     backgroundColor: "#ebeff2",
     overflowY: "scroll",
-    border: ".05rem solid #00b6d3",
+    border: ".05rem solid #42B0D5",
     // textAlign:"center",
   },
   paper2:{
     flexGrow:1,
     backgroundColor:"#ebeff2",
-    border: ".05rem solid #00b6d3",
+    border: ".05rem solid #42B0D5",
     marginTop:"2vh"
   }
 }));
@@ -204,7 +207,7 @@ function SearchView() {
             value={val}
             TabIndicatorProps={{
               style: {
-                backgroundColor: "#00b6d3",
+                backgroundColor: "#42B0D5",
               },
             }}
             className={classes.panel}
@@ -354,7 +357,7 @@ function SearchView() {
             <Button
               variant="contained"
               size="small"
-              style={{ backgroundColor: "#00b6d3", color: "#ffffff" }}
+              style={{ backgroundColor: "#42B0D5", color: "#ffffff", textTransform: "none" }}
               // onClick={()=>dispatch(setres(tabnumber))}
               onClick={getresult}
             >
@@ -386,19 +389,19 @@ function SearchView() {
                 <TableRow hover role="checkbox" tabIndex={-1} key={row.rowid} 
                 onClick={()=>{ tabs.length<10? /* dispatch(addresult({ id:0 ,res :rowdata[row.id-1] })) */handlenewresult(row.rowid) :
                        window.alert("You can't open more than this much tabs. Please close one or more tabs to open a new one.")}}>
-                      <TableCell key="name" align="center" style={{borderBottom:".05rem solid #00b6d3",textAlign:"center"}}>
+                      <TableCell key="name" align="center" style={{borderBottom:".05rem solid #42B0D5",textAlign:"center"}}>
                           {row.name}
                       </TableCell>
-                      <TableCell key="status" align="center" style={{borderBottom:".05rem solid #00b6d3",textAlign:"center"}}>
+                      <TableCell key="status" align="center" style={{borderBottom:".05rem solid #42B0D5",textAlign:"center"}}>
                       {row.status}
                       </TableCell>
-                      <TableCell key="code" align="center" style={{borderBottom:".05rem solid #00b6d3",textAlign:"center"}}>
+                      <TableCell key="code" align="center" style={{borderBottom:".05rem solid #42B0D5",textAlign:"center"}}>
                       {row.code}
                       </TableCell>
-                      <TableCell key="parentname" align="center" style={{borderBottom:".05rem solid #00b6d3",textAlign:"center"}}>
+                      <TableCell key="parentname" align="center" style={{borderBottom:".05rem solid #42B0D5",textAlign:"center"}}>
                       {row.pname}
                       </TableCell>
-                      <TableCell key="parenttype" align="center" style={{borderBottom:".05rem solid #00b6d3",textAlign:"center"}}>
+                      <TableCell key="parenttype" align="center" style={{borderBottom:".05rem solid #42B0D5",textAlign:"center"}}>
                       {row.ptype}
                       </TableCell>
                 </TableRow>

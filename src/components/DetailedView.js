@@ -11,6 +11,9 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import { useDispatch, useSelector } from "react-redux";
 import { setinsidetab } from "../actions/allActions";
+import "@maersk-global/fonts/maeu/fonts.css";
+import '@maersk-global/mds-foundations/foundations.css';
+import "@maersk-global/mds-design-tokens/maersk/light/web/css/design-tokens.css"; 
 
 const useStyles = makeStyles((theme) => ({
   tabs: {
@@ -18,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
   },
   panel: {
     "& .MuiTab-textColorInherit.Mui-selected": {
-      color: "#00b6d3",
+      color: "#42B0D5",
     },
   },
   btn: {
@@ -35,20 +38,20 @@ const useStyles = makeStyles((theme) => ({
   },
   header: {
     display: "flex",
-    backgroundColor: "#00b6d3",
+    backgroundColor: "#42B0D5",
     margin: "2vh 0vh",
     width: "100%",
     justifyContent: "flex-end",
   },
   header2: {
     display: "flex",
-    backgroundColor: "#00b6d3",
+    backgroundColor: "#42B0D5",
     margin: "1vh 0vh",
     width: "100%",
     justifyContent: "flex-end",
   },
   cell:{
-    borderBottom: ".05rem solid #00b6d3",
+    borderBottom: ".05rem solid #42B0D5",
   },
 }));
 
@@ -86,12 +89,12 @@ function DetailedView() {
         </Button>
       </div>
       <div style={{ margin: "3vh" }}>
-        <Paper style={{backgroundColor: "#ebeff2",border: ".05rem solid #00b6d3", }}>
+        <Paper style={{backgroundColor: "#ebeff2",border: ".05rem solid #42B0D5", }}>
           <Tabs
             value={val}
             TabIndicatorProps={{
               style: {
-                backgroundColor: "#00b6d3",
+                backgroundColor: "#42B0D5",
               },
             }}
             className={classes.panel}

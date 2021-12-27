@@ -6,6 +6,9 @@ import { makeStyles } from "@material-ui/core/styles";
 import ClearIcon from "@material-ui/icons/Clear";
 import { useSelector, useDispatch } from "react-redux";
 import { deletetab, setvalue } from "../actions/allActions";
+import "@maersk-global/fonts/maeu/fonts.css";
+import '@maersk-global/mds-foundations/foundations.css';
+import "@maersk-global/mds-design-tokens/maersk/light/web/css/design-tokens.css"; 
  
 const useStyles = makeStyles((theme) =>({
     tabs:{
@@ -13,7 +16,7 @@ const useStyles = makeStyles((theme) =>({
     },
     panel:{
       "& .MuiTab-textColorInherit.Mui-selected":{
-        color: "#00b6d3",
+        color: "#42B0D5",
       }
     },
 }));
@@ -46,7 +49,7 @@ function TabHeader() {
           value={value}
           TabIndicatorProps={{
             style:{
-              backgroundColor:"#00b6d3",
+              backgroundColor:"#42B0D5",
             }
           }}
           className={classes.panel}
