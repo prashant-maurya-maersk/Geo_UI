@@ -12,7 +12,6 @@ import Fade from "@material-ui/core/Fade";
 import MenuIcon from "@material-ui/icons/Menu";
 import { useSelector, useDispatch } from "react-redux";
 import { addsearchtab } from "../actions/allActions";
-import "./../../node_modules/@maersk-global/fonts/maeu/fonts.css";
 import "@maersk-global/fonts/maeu/fonts.css";
 import '@maersk-global/mds-foundations/foundations.css';
 import "@maersk-global/mds-design-tokens/maersk/light/web/css/design-tokens.css"; 
