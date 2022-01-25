@@ -114,7 +114,7 @@ function Header() {
               </div>
               <div className={classes.con2}>
                 <b>
-                  <div class="mds-font--display-3">GEOGRAPHY MASTER DATA</div>
+                  <div class="mds-font--display-3">Geography Master Data</div>
                   {/* <p>GEOGRAPHY MASTER DATA</p> */}
                 </b>
               </div>
@@ -164,7 +164,7 @@ function Header() {
               </div>
               <div className={classes.con2}>
                 <b>
-                  <p>GEOGRAPHY MASTER DATA</p>
+                  <p>Geography Master Data</p>
                 </b>
               </div>
               <div className={classes.con3}>
